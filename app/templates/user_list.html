@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block content %}
+<table class="table table-striped table-hover table-condensed">
+    <caption>{{_('用户管理')}}
+        <a class='' href="{{ url_for('edit.new') }}" title='{{_("创建新用户")}}'>
+            <span class='glyphicon glyphicon-plus-sign'></span>
+        </a>
+    </caption>
+    <thead>
+        <tr>
+            <th>{{_('用户名')}}</th>
+            <th>{{_('用户组')}}</th>
+            <th>{{_('注册IP')}}</th>
+            <th>{{_('注册时间')}}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+        <tr id="{{'utr'+user.uin}}">
+            <td>
+                <a href="{{ url_for('edit.edit', uin=user.uin) }}" title='{{_("编辑用户")}}'><small class='external'><span class='glyphicon glyphicon-edit'></span></small></a>
+                {{ user.uin }}
+                <a href="{{ url_for('edit.delete', uin=user.uin) }}" title='{{_("删除用户")}}'><small class='external'><span id="{{'udspan'+user.uin}}" style="visibility:hidden" class='glyphicon glyphicon-remove'></span></small></a>
+            </td>
+            <td>{{ user.group }}</td>
+            <td>{{ user.registration_ip }}</td>
+            <td>{{ user.registration_date }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a class='btn btn-xs' href="{{ url_for('edit.new') }}">
+    <span class='glyphicon glyphicon-plus-sign'></span>
+    {{_("创建新用户")}}
+</a>
+<div id="js_debug_msg"></div>
+
+
+<script type="text/javascript">
+$(function() {
+    {% for user in users %}
+        $(function() {
+            var uin = "{{ user.uin }}";
+            var utrid = "#utr"+uin;
+            var udspanid = "#udspan"+uin;
+
+            $(utrid).hover(function(){
+                $(udspanid).css("visibility","");
+            },function(){
+                $(udspanid).css("visibility","hidden");
+            })
+        });
+    {% endfor %}
+});
+</script>
+{% endblock %}

@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% if op == 'new' %}
+<h4>{{_('新建用户')}}</h4>
+{% else %}
+<h4>{{_('修改用户')}}</h4>
+{% endif %}
+
+<form class="form-horizontal" action="" method="post" name="edit">
+    {{form.hidden_tag()}}
+    <div class='form-group{% if form.errors.account %} error{% endif %}'>
+        <label for='uin' class='control-label col-sm-2'>{{_('用户名：')}}</label>
+        <div class="controls">
+            <div class='col-sm-8'>
+                {% if op == 'new' %}
+                {{ form.account(size=16, maxlength=32, placeholder=_('用户账号'), id='uin', class="form-control input-sm") }}
+                {% else %}
+                {{ form.account(value=user.uin, readonly="readonly", size=16, maxlength=32, placeholder=_('用户账号'), id='uin', class="form-control input-sm") }}
+                {% endif %}
+                {% for error in form.errors.account %}
+                <span class="help-inline">[{{error}}]</span><br>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+
+    <div class='form-group{% if form.errors.password %} error{% endif %}'>
+        <label for='password' class='control-label col-sm-2'>{{_('密码：')}}</label>
+        <div class="controls">
+            <div class='col-sm-8'>
+                {% if op == 'new' %}
+                {{ form.password(size=48, placeholder=_('用户密码'), id='password', class="form-control input-sm") }}
+                {% else %}
+                {{ form.password(value=user.passwd, size=48, type="password", placeholder=_('用户密码'), id='password', class="form-control input-sm") }}
+                {% endif %}
+
+                {% for error in form.errors.password %}
+                <span class="help-inline">[{{error}}]</span><br>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+
+    <div class='form-group'>
+        <label for='group' class='control-label col-sm-2'>{{_('用户组：')}}</label>
+        <div class="controls">
+            <div class='col-sm-2'>
+                {{ form.group(class='form-control') }}
+                {% for error in form.errors.group %}
+                <span class="help-inline">[{{error}}]</span><br>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class='form-group'>
+        <div class='col-sm-offset-2 col-sm-10'>
+            {{ form.submit(class="btn btn-primary", id="edit_btn", value=_('提交')) }}
+        </div>
+    </div>
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

@@ -1,0 +1,130 @@
+{% extends "base.html" %}
+
+
+<style>
+    body{
+        overflow: hidden;
+        margin: 0;
+        /*background: black;*/
+        /*background: black;*/
+    }
+</style>
+{% block content %}
+<body>
+    <div id="loginModal" class="modal show">
+      <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="text-center text-primary">{{_('登录')}}</h1>
+            <!--<div id="js_debug_msg"></div>-->
+          </div>
+          <div class="modal-body">
+            <form class="form" action="" method="post" name="login">
+              {{form.hidden_tag()}}
+              <div class="control-group{% if form.errors.account %} error{% endif %}">
+                <label class="control-label" for="account">{{ _('账号：') }}</label>
+                <div class="controls">
+                  {{ form.account(size = 32, placeholder=_('用户账号'), class = "form-control input-lg") }}
+                  {% for error in form.errors.account %}
+                      <span class="help-inline">[{{error}}]</span><br>
+                  {% endfor %}
+                </div>
+              </div>
+              <div class="control-group{% if form.errors.account %} error{% endif %}">
+                <label class="control-label" for="password">{{ _('密码：') }}</label>
+                <div class="controls">
+                  {{ form.password(size = 32, type="password", placeholder=_('用户密码'), class = "form-control input-lg") }}
+                  {% for error in form.errors.password %}
+                  <span class="help-inline">[{{error}}]</span><br>
+                  {% endfor %}
+                </div>
+              </div>
+              <div class="control-group">
+                <label class="control-label" for=""></label>
+                <div class="controls">
+                  <div class="panel-body text-center">
+                      <span id="clock_login"></span>
+                  </div>
+                  <input class="btn btn-primary  btn-lg btn-block" id="login_btn" type="submit" value="{{ _('登录') }}">
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <canvas id="matrix"></canvas>
+
+    <script>
+    var matrix=document.getElementById("matrix");
+    var context=matrix.getContext("2d");
+    matrix.height=window.innerHeight;
+    matrix.width=window.innerWidth;
+    var drop=[];
+    var choise=[];
+    var max_columns=7;
+    var font_size=20;
+    var font_x=20;
+    var columns=matrix.width/font_x;
+    var rows=Math.floor(matrix.height/font_size);
+    for(var i=0;i<columns;i++)
+        drop[i]=-Math.floor(Math.random()*rows);
+    for(var j=0;j<max_columns;j++){
+        var base=((j+1.0)/max_columns)-((j+1.0)/max_columns/2)
+        choise[j]=Math.floor(base*columns + Math.random()*columns*base)
+    }
+
+    function drawMatrix(){
+        context.fillStyle="rgba(0, 0, 0, 0.1)";
+        context.fillRect(0,0,matrix.width,matrix.height);
+
+        context.fillStyle="green";
+        context.font=font_size+"px";
+        for(var j=0;j<max_columns;j++){
+            i = choise[j];
+            context.fillText(Math.floor(Math.random()*2),i*font_x,drop[i]*font_size);
+            //context.fillText(drop[i],i*font_x,drop[i]*font_size);
+            drop[i]++;
+            if(drop[i]*font_size > (matrix.height) && Math.random()>0.95){
+                var magicj=Math.floor(Math.random()*max_columns)
+                var base=((magicj+1.0)/max_columns)-((magicj+1.0)/max_columns/2)
+                var magicx=Math.floor(base*columns + Math.random()*columns*base)
+                drop[magicx]=0;
+                drop[i]=0;
+                choise[magicj]=magicx;
+            }
+        }
+    }
+//    setInterval(drawMatrix, 100);
+    </script>
+
+    <script type="text/javascript">
+    $(function() {
+        var timenow = new Date();
+        var wait_second = {{session.login_cd_second}};
+//        $('#js_debug_msg').html('wait'+wait_second);
+        if(wait_second>0) {
+            $("#login_btn").attr("disabled", true);
+            timenow.setSeconds(timenow.getSeconds() + wait_second);
+            $('#clock_login').countdown(timenow,function(event){
+                var timeformat = event.strftime('%M:%S 后重试');
+                $(this).html(timeformat);
+            }).on('finish.countdown', function() {
+                $(this);
+                //.parent()
+                //.hide()
+                $("#clock_login").hide();
+                $("#login_btn").removeAttr("disabled");
+                //.show();
+            });
+        }
+
+    });
+    </script>
+</body>
+</html>
+{% endblock %}
