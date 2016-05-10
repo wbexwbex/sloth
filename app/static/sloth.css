@@ -70,10 +70,10 @@ color: #fff;
 /*定义二级菜单渐变效果*/
 .secondmenu a
 {
-transition:all 0.1s;
--moz-transition:all 0.1s; /* Firefox 4 */
--webkit-transition:all 0.1s; /* Safari and Chrome */
--o-transition:all 0.1s; /* Opera */
+transition:all 0.02s;
+-moz-transition:all 0.02s; /* Firefox 4 */
+-webkit-transition:all 0.02s; /* Safari and Chrome */
+-o-transition:all 0.02s; /* Opera */
 }
 
 .secondmenu a:hover

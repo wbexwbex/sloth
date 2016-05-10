@@ -4,31 +4,20 @@ from flask import flash, session, request, g, send_from_directory
 from flask.ext.babel import gettext
 from ..models import *
 from ..models.account import MAccount
-from ..utils import passwdHash, requires_login, pjax
+from ..utils import passwdHash, requires_login, pjax, menu_list
 from collections import defaultdict
+from collections import namedtuple
 
 mod = Blueprint('game', __name__, url_prefix='/game')
 
 import time
 from functools import wraps
 
-# menu_list = {
-#     1: {
-#         0: ('name10', 'icon10',),
-#     },
-#     2: {
-#         0: ('name20', 'icon20',),
-#         1: ('name21', 'icon22',),
-#     },
-# }
-
-menu_list = defaultdict(lambda: {})
-
-
+MenuInfo = namedtuple('MenuInfo', ('title', 'icon', 'endpoint',))
 def generate_menu(name, icon, level, row=1):
     def register_handler(handler):
-        menu_list[level][row] = (name, icon,)
-        print icon, level, row
+        menu_list[level][row] = MenuInfo(name, icon, '%s.%s' % (mod.name, handler.func_name,))
+        print icon, level, row, handler.func_name
         print menu_list
         return handler
 
@@ -61,6 +50,19 @@ def stuff_menu2():
 def login():
 
     return pjax('game/login.html', title='Game Login',)
+
+    # return render_template(
+    #     'game/login.html',
+    #     title='Game Login',
+    # )
+
+
+@mod.route('/login1', methods=['GET'])
+@requires_login
+@generate_menu(gettext(u'登陆详情1'), 'glyphicon-user', 2, 2)
+def login1():
+
+    return pjax('game/login.html', title='Game Login1',)
 
     # return render_template(
     #     'game/login.html',

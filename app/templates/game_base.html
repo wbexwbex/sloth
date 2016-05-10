@@ -39,26 +39,50 @@
         <div class="row">
             <div class="col-md-2">
                 <ul id="main-nav" class="nav nav-tabs nav-stacked" style="">
-                    <li class="active">
-                        <a href="{{ url_for('game.index') }}" data-pjax="#main">
-                            <i class="glyphicon glyphicon-th-large"></i>
-                            {{_("用户信息")}}
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#systemSetting" class="nav-header collapsed" data-toggle="collapse">
-                            <i class="glyphicon glyphicon-cog"></i>
-                            {{_("查询功能")}}
-                            <span class="pull-right glyphicon glyphicon-chevron-down"></span>
-                        </a>
-                        <ul id="systemSetting" class="nav nav-list collapse secondmenu" style="height: 0px;">
-                            <li><a href="{{ url_for('game.login') }}" data-pjax="#main"><i class="glyphicon glyphicon-user"></i>{{_("登陆详情")}}</a></li>
-                            <li><a href="#"><i class="glyphicon glyphicon-th-list"></i>{{_("充值详情")}}</a></li>
-                            <li><a href="#"><i class="glyphicon glyphicon-asterisk"></i>{{_("消费详情")}}</a></li>
-                            <li><a href="#"><i class="glyphicon glyphicon-edit"></i>{{_("活动详情")}}</a></li>
-                            <li><a href="#"><i class="glyphicon glyphicon-eye-open"></i>{{_("行为详情")}}</a></li>
-                        </ul>
-                    </li>
+
+                    {% for idx, menus in menu_list.items() %}
+                        {% if menus|length > 1 %}
+                            <li>
+                                <a href="{{ '#%s'|format(menus[0].endpoint|replace('.','_')) }}" class="nav-header collapsed" data-toggle="collapse">
+                                    <i class="{{ 'glyphicon %s'|format(menus[0].icon) }}"></i>
+                                    {{ menus[0].title }}
+                                    <span class="pull-right glyphicon glyphicon-chevron-down"></span>
+                                </a>
+                                <ul id="{{ menus[0].endpoint|replace('.','_') }}" class="nav nav-list collapse secondmenu" style="height: 0px;">
+                                    {% for row, menu in menus.items()[1:] %}
+                                        <li>
+                                            <a href="{{ url_for(menu.endpoint) }}" data-pjax="#main">
+                                                <i class="{{ 'glyphicon %s'|format(menu.icon) }}"></i>
+                                                {{ menu.title }}
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                        {% else %}
+                            <li>
+                                <a href="{{ url_for(menus[0].endpoint) }}" data-pjax="#main">
+                                    <i class="{{ 'glyphicon %s'|format(menus[0].icon) }}"></i>
+                                    {{ menus[0].title }}
+                                </a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+
+{#                    <li>#}
+{#                        <a href="#systemSetting" class="nav-header collapsed" data-toggle="collapse">#}
+{#                            <i class="glyphicon glyphicon-cog"></i>#}
+{#                            {{_("查询功能")}}#}
+{#                            <span class="pull-right glyphicon glyphicon-chevron-down"></span>#}
+{#                        </a>#}
+{#                        <ul id="systemSetting" class="nav nav-list collapse secondmenu" style="height: 0px;">#}
+{#                            <li><a href="{{ url_for('game.login') }}" data-pjax="#main"><i class="glyphicon glyphicon-user"></i>{{_("登陆详情")}}</a></li>#}
+{#                            <li><a href="#"><i class="glyphicon glyphicon-th-list"></i>{{_("充值详情")}}</a></li>#}
+{#                            <li><a href="#"><i class="glyphicon glyphicon-asterisk"></i>{{_("消费详情")}}</a></li>#}
+{#                            <li><a href="#"><i class="glyphicon glyphicon-edit"></i>{{_("活动详情")}}</a></li>#}
+{#                            <li><a href="#"><i class="glyphicon glyphicon-eye-open"></i>{{_("行为详情")}}</a></li>#}
+{#                        </ul>#}
+{#                    </li>#}
 {#                    <li>#}
 {#                        <a href="./plans.html">#}
 {#                            <i class="glyphicon glyphicon-credit-card"></i>#}

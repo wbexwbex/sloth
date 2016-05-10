@@ -4,6 +4,7 @@ from functools import wraps
 from flask.ext.babel import gettext
 from flask import render_template, g, session, url_for, flash, abort, request, redirect, Markup
 from . import app
+from collections import defaultdict
 
 def is_admin(uin):
     return uin in app.cfg['ADMINS_UIN']
@@ -44,9 +45,19 @@ def passwdHash(passwd):
     return unicode(hashlib.sha1(_salt + passwd).hexdigest())
 
 
+# menu_list = {
+#     1: {
+#         0: ('name10', 'icon10',),
+#     },
+#     2: {
+#         0: ('name20', 'icon20',),
+#         1: ('name21', 'icon22',),
+#     },
+# }
+menu_list = defaultdict(lambda: {})
 def pjax(template, base_html='game_base.html', **kw):
     """Test whether the request was with PJAX or not."""
     if "X-PJAX" in request.headers:
         return render_template(template)
 
-    return render_template(base_html, template=template, **kw)
+    return render_template(base_html, template=template, menu_list=menu_list, **kw)
