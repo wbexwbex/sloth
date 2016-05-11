@@ -48,11 +48,11 @@ def passwdHash(passwd):
 
 # menu_list = {
 #     1: {
-#         0: ('name10', 'icon10',),
+#         0: ('name10', 'icon10', 'endpoint',),
 #     },
 #     2: {
-#         0: ('name20', 'icon20',),
-#         1: ('name21', 'icon22',),
+#         0: ('name20', 'icon20', 'endpoint',),
+#         1: ('name21', 'icon22', 'endpoint',),
 #     },
 # }
 # menu_list = defaultdict(lambda: {})

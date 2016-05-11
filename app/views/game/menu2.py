@@ -24,3 +24,22 @@ def login1():
 
     return pjax(menu_list, 'game/login.html', title='Game Login1',)
 
+
+
+def change_func_name(name):
+    def register_handler(handler):
+        handler.__name__ = name
+        print 'change_func_name', handler.__name__
+        return handler
+
+    return register_handler
+
+
+for i in xrange(3, 20):
+    @mod.route('/login%s' % i, methods=['GET'])
+    @requires_login
+    @generate_menu(menu_list, mod, gettext(u'登陆详情%s' % i), 'glyphicon-user', 2, i)
+    @change_func_name('login%s' % i)
+    def loginx():
+        return pjax(menu_list, 'game/login.html', title='Game Login%s' % i,)
+
