@@ -29,7 +29,6 @@ def login1():
 def change_func_name(name):
     def register_handler(handler):
         handler.__name__ = name
-        print 'change_func_name', handler.__name__
         return handler
 
     return register_handler

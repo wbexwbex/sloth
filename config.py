@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-
+from collections import defaultdict
+import sys
 import os
 
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -37,4 +38,14 @@ SQLALCHEMY_DATABASE_URIS = {
 SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db_repository')
 SQLALCHEMY_RECORD_QUERIES = True
 
+
+
+if sys.platform != 'win32':
+    server_list_path = '/opt/script/server_list'
+else:
+    server_list_path = 'E:/xianni_web/sloth/server_list'
+
+serverDict = defaultdict(lambda: None)
+domainDict = defaultdict(lambda: [])
+domainList = []
 

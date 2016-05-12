@@ -1,4 +1,6 @@
 from gevent import monkey
+import gevent
+
 monkey.patch_thread()
 monkey.patch_all()
 import os
@@ -72,6 +74,13 @@ from views import login, game, edit
 app.register_blueprint(login.mod)
 app.register_blueprint(game.mod)
 app.register_blueprint(edit.mod)
+
+
+from analysis_server_list import refresh_server_info
+from timer_handler import TimerHandlerDay, TimerHandlerOnce
+gevent.spawn(TimerHandlerOnce, refresh_server_info, 0, app)
+app.h_timer_server_info = gevent.spawn(TimerHandlerDay, refresh_server_info, 24*3600, app)
+
 
 
 from gevent.backdoor import BackdoorServer
