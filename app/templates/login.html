@@ -111,7 +111,7 @@
             $("#login_btn").attr("disabled", true);
             timenow.setSeconds(timenow.getSeconds() + wait_second);
             $('#clock_login').countdown(timenow,function(event){
-                var timeformat = event.strftime('%M:%S 后重试');
+                var timeformat = event.strftime('Please wait %M:%S and try again.');
                 $(this).html(timeformat);
             }).on('finish.countdown', function() {
                 $(this);

@@ -1,0 +1,43 @@
+<div class="container">
+    <label for='auditVersion' class='control-label col-sm-2'>{{_("创建新用户")}}</label>
+    <select id="s1" onchange="toChangeDomain(this, 's2');">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+    </select>
+    <select id="s2" onchange="toChangeServer(this, 's1');">
+        <option value="1">一</option>
+        <option value="2">二</option>
+        <option value="3">三</option>
+        <option value="4">四</option>
+    </select>
+
+    <div id="js_debug_msg"></div>
+    <script type="text/javascript">
+        var domainDict = {
+            '1': ['a', 'b'],
+            '2': ['1', '2'],
+            '3': ['a', 'b'],
+            '4': ['1', '2'],
+        };
+        $('#js_debug_msg').html(domainDict['1'] + domainDict['2']);
+
+        function toChangeDomain(obj, id) {
+            $("#"+id).empty();
+            $("#"+id).get(0).options.length = 0;
+            $('#js_debug_msg').html(obj.value);
+            options = $("#"+id).get(0).options;
+            var serverList = domainDict[obj.value]
+            for (var i = 0; i < serverList.length; i++) {
+{#                $("#"+id).get(0).options.add(new Option(serverList[i],serverList[i]));#}
+                options.add(new Option(serverList[i],serverList[i]));
+            }
+
+        }
+
+
+        function toChangeServer(obj, id) {
+        }
+    </script>
+</div>
