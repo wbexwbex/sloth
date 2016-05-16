@@ -1,17 +1,20 @@
 <div class="container">
-    <label for='auditVersion' class='control-label col-sm-2'>{{_("创建新用户")}}</label>
-    <select id="s1" onchange="toChangeDomain(this, 's2');">
+    <label class='col-xs-6 col-sm-6'></label>
+    <label class='col-xs-1 col-sm-1'>{{ _("平台：") }}</label>
+    <select class='well-sm col-xs-2 col-sm-2' id="s1" onchange="toChangeDomain(this, 's2');">
         <option value="1">1</option>
         <option value="2">2</option>
         <option value="3">3</option>
         <option value="4">4</option>
     </select>
-    <select id="s2" onchange="toChangeServer(this, 's1');">
+    <label class='col-xs-1 col-sm-1'>{{ _("区服：") }}</label>
+    <select class='well-sm col-xs-2 col-sm-2' id="s2" onchange="toChangeServer(this, 's1');">
         <option value="1">一</option>
         <option value="2">二</option>
         <option value="3">三</option>
         <option value="4">四</option>
     </select>
+
 
     <div id="js_debug_msg"></div>
     <script type="text/javascript">
