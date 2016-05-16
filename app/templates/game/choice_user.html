@@ -1,38 +1,57 @@
-<div class="container">
-    <label class='col-xs-6 col-sm-6'></label>
-    <label class='col-xs-1 col-sm-1'>{{ _("平台：") }}</label>
-    <select class='well-sm col-xs-2 col-sm-2' id="domainselect" onchange="toChangeDomain(this, 'serverselect');">
+<div class="container row">
+    <label class='col-xs-4 col-sm-4'></label>
+    <label class='col-xs-2 col-sm-2 text-right'>{{ _("平台：") }}</label>
+{#        {{ userform.group(class='form-control') }}#}
+    <select class='col-xs-2 col-sm-2' id="domainselect" onchange="toChangeDomain(this, 'serverselect');">
         <option value="" selected="true" disabled="true">{{ _("选择平台") }}</option>
     </select>
-    <label class='col-xs-1 col-sm-1'>{{ _("区服：") }}</label>
-    <select class='well-sm col-xs-2 col-sm-2' id="serverselect" onchange="toChangeServer(this, 's1');">
+    <label class='col-xs-2 col-sm-2 text-right'>{{ _("区服：") }}</label>
+    <select class='col-xs-2 col-sm-2' id="serverselect" onchange="toChangeServer(this, 's1');">
     </select>
-
-
-    <div id="js_debug_msg"></div>
-    <script type="text/javascript">
-        domainoptions = $("#domainselect").get(0).options;
-        var domainDict = new Array();
-        {% for k,v in pyDomainDict.iteritems() %}
-            domainDict['{{ k }}'] = new Array();
-            domainoptions.add(new Option('{{ k }}', '{{ k }}'));
-            {% for i in v %}
-                domainDict['{{ k }}'].push('{{ i }}');
-            {% endfor %}
-        {% endfor %}
-
-        function toChangeDomain(obj, id) {
-            $("#"+id).empty();
-            $("#"+id).get(0).options.length = 0;
-            $('#js_debug_msg').html(obj.value);
-            options = $("#"+id).get(0).options;
-            var serverList = domainDict[obj.value]
-            for (var i = 0; i < serverList.length; i++) {
-                options.add(new Option(serverList[i],serverList[i]));
-            }
-        }
-
-        function toChangeServer(obj, id) {
-        }
-    </script>
 </div>
+
+<div class="container row">
+    <label class='col-xs-2 col-sm-2 text-right'>{{ _("用户ID：") }}</label>
+    {{ userform.roleid(size=16, maxlength=32, placeholder=_('用户ID'), id='roleid', class="col-xs-2 col-sm-2") }}
+    {% for error in userform.errors.roleid %}
+        <span class="help-inline col-xs-1 col-sm-1">[{{error}}]</span><br>
+    {% endfor %}
+    <label class='col-xs-2 col-sm-2 text-right'>{{ _("昵称：") }}</label>
+    {{ userform.name(size=16, maxlength=32, placeholder=_('角色名'), id='name', class="col-xs-2 col-sm-2") }}
+    {% for error in userform.errors.name %}
+        <span class="help-inline col-xs-1 col-sm-1">[{{error}}]</span><br>
+    {% endfor %}
+</div>
+<div class="container row">
+    <label class='col-xs-10 col-sm-10'>......</label>
+{#    {{ userform.submit(class=" btn btn-primary", id="edit_btn", value=_('查询')) }}#}
+    <input class="col-xs-2 col-sm-2 btn btn-primary btn-lg btn-block" data-pjax="#detail" id="search_btn" type="submit" value="{{ _('查询') }}">
+</div>
+
+
+<div id="js_debug_msg"></div>
+<script type="text/javascript">
+    domainoptions = $("#domainselect").get(0).options;
+    var domainDict = new Array();
+    {% for k,v in pyDomainDict.iteritems() %}
+        domainDict['{{ k }}'] = new Array();
+        domainoptions.add(new Option('{{ k }}', '{{ k }}'));
+        {% for i in v %}
+            domainDict['{{ k }}'].push('{{ i }}');
+        {% endfor %}
+    {% endfor %}
+
+    function toChangeDomain(obj, id) {
+        $("#"+id).empty();
+        $("#"+id).get(0).options.length = 0;
+{#            $('#js_debug_msg').html(obj.value);#}
+        options = $("#"+id).get(0).options;
+        var serverList = domainDict[obj.value]
+        for (var i = 0; i < serverList.length; i++) {
+            options.add(new Option(serverList[i],serverList[i]));
+        }
+    }
+
+    function toChangeServer(obj, id) {
+    }
+</script>
