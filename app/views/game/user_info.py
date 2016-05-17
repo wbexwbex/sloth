@@ -14,9 +14,9 @@ from flask import flash, session, request, g, send_from_directory
 @generate_menu(menu_list, mod, gettext(u'用户信息'), 'glyphicon-th-large', 1, 0)
 def index():
 
-    form = UserForm()
-    print form, request
+    # form = UserForm()
+    print request
 
     return pjax(menu_list, 'game/user.html', title='Game',
-                pyDomainDict=app.cfg['domainDict'], userform=form)
+                pyDomainDict=app.cfg['domainDict'])
 

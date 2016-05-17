@@ -1,8 +1,10 @@
 <h1>user</h1>
 <p>The user page.</p>
-<form class="bs-example bs-example-form" action="" method="post" data-pjax="#detail">
-    {% include "game/choice_user.html" %}
+<form class="bs-example bs-example-form" method="post" data-pjax="#detailx">
+{#    {% include "game/choice_user.html" %}#}
+    名：<input type="text" name="firstname">
+    <input class="btn btn-primary btn-lg btn-block" data-pjax="#detailx" id="search_btn" type="submit" value="{{ _('查询') }}">
 </form>
 
-<div id="detail">
+<div id="detailx">
 </div>
