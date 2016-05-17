@@ -1,14 +1,15 @@
-$(function() {
+$(function(){
 
-  // Set up PJAX.
-  $('a[data-pjax]').pjax();
-  $('form[data-pjax]').pjax();
+    // Set up PJAX.
+    $('a[data-pjax]').pjax();
+    //$('form[data-pjax]').pjax();
+    var context = this;
+    $(document).on('submit', 'form[data-pjax]', function (event) {
+        var container = $(this).attr('data-pjax') || context;
+        $.pjax.submit(event, container)
+    });
 
-  //$('input[data-pjax]').pjax({type: "POST"});
-  //$(document).pjax($('a[data-pjax]'));
-  //$(document).pjax($('form[data-pjax]'));
-
-  // Pretty print <pre> blocks.
-  //prettyPrint();
+    // Pretty print <pre> blocks.
+    //prettyPrint();
 
 });

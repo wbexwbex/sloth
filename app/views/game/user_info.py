@@ -4,8 +4,7 @@ from flask.ext.babel import gettext
 from ...utils import passwdHash, requires_login, pjax, generate_menu
 from ... import app
 from user_form import UserForm
-from flask import flash, session, request, g, send_from_directory
-
+from flask import flash, session, request, g, send_from_directory, render_template
 
 
 @mod.route('/', methods=['GET'])
@@ -14,9 +13,17 @@ from flask import flash, session, request, g, send_from_directory
 @generate_menu(menu_list, mod, gettext(u'用户信息'), 'glyphicon-th-large', 1, 0)
 def index():
 
-    # form = UserForm()
+    form = UserForm()
     print request
+    print request.method, request.form
+
+    if request.method == 'POST':
+    # if form.validate_on_submit():
+        print 'validate_on_submit'
+        return pjax(menu_list, 'game/user.html',
+                    subpage='game/user_detail.html', title='Game',
+                    pyDomainDict=app.cfg['domainDict'], userform=form)
 
     return pjax(menu_list, 'game/user.html', title='Game',
-                pyDomainDict=app.cfg['domainDict'])
+                pyDomainDict=app.cfg['domainDict'], userform=form)
 

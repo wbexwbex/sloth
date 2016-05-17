@@ -1,7 +1,7 @@
 <div class="container row">
     <label class='col-xs-4 col-sm-4'></label>
     <label class='col-xs-2 col-sm-2 text-right'>{{ _("平台：") }}</label>
-{#        {{ userform.group(class='form-control') }}#}
+{#    {{ userform.domain(class='col-xs-2 col-sm-2', id="domainselect", onchange="toChangeDomain(this, 'serverselect');" ) }}#}
     <select class='col-xs-2 col-sm-2' id="domainselect" onchange="toChangeDomain(this, 'serverselect');">
         <option value="" selected="true" disabled="true">{{ _("选择平台") }}</option>
     </select>
@@ -21,11 +21,13 @@
     {% for error in userform.errors.name %}
         <span class="help-inline col-xs-1 col-sm-1">[{{error}}]</span><br>
     {% endfor %}
+    <label class='col-xs-2 col-sm-2'></label>
+    {{ userform.submit(class=" btn btn-primary", id="edit_btn", value=_('查询')) }}
 </div>
 <div class="container row">
     <label class='col-xs-10 col-sm-10'>......</label>
 {#    {{ userform.submit(class=" btn btn-primary", id="edit_btn", value=_('查询')) }}#}
-    <input class="col-xs-2 col-sm-2 btn btn-primary btn-lg btn-block" data-pjax="#detail" id="search_btn" type="submit" value="{{ _('查询') }}">
+{#    <input class="col-xs-2 col-sm-2 btn btn-primary btn-lg btn-block" data-pjax="#detail" id="search_btn" type="submit" value="{{ _('查询') }}">#}
 </div>
 
 

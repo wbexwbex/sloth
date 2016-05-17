@@ -59,7 +59,10 @@ def passwdHash(passwd):
 def pjax(menu_list, template, base_html='game_base.html', **kw):
     """Test whether the request was with PJAX or not."""
     if "X-PJAX" in request.headers:
-        return render_template(template, **kw)
+        if 'subpage' in kw:
+            return render_template(kw['subpage'], **kw)
+        else:
+            return render_template(template, **kw)
 
     return render_template(base_html, template=template, menu_list=menu_list, **kw)
 
