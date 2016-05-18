@@ -11,3 +11,14 @@ import user_info
 import menu2
 
 
+@mod.route('/ajax/setdomain', methods=['GET'])
+def ajax():
+
+    #Access arguments via request.args
+    name = request.args.get('name')
+    time = request.args.get('time')
+
+
+    return render_template('ajax.html',
+                           name=name,
+                           time=time)

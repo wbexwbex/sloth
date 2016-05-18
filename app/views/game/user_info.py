@@ -6,11 +6,15 @@ from ... import app
 from user_form import UserForm
 from flask import flash, session, request, g, send_from_directory, render_template
 
+@generate_menu(menu_list, mod, gettext(u'用户信息'), 'glyphicon-th-large', 1, 0)
+def stuff_menu1():
+    pass
+
 
 @mod.route('/', methods=['GET'])
 @mod.route('/user/', methods=['GET', 'POST'])
 @requires_login
-@generate_menu(menu_list, mod, gettext(u'用户信息'), 'glyphicon-th-large', 1, 0)
+@generate_menu(menu_list, mod, gettext(u'基本信息'), 'glyphicon-th-large', 1, 1)
 def index():
 
     form = UserForm()

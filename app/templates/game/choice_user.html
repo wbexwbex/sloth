@@ -1,14 +1,13 @@
-<div class="container row">
-    <label class='col-xs-4 col-sm-4'></label>
-    <label class='col-xs-2 col-sm-2 text-right'>{{ _("平台：") }}</label>
-{#    {{ userform.domain(class='col-xs-2 col-sm-2', id="domainselect", onchange="toChangeDomain(this, 'serverselect');" ) }}#}
-    <select class='col-xs-2 col-sm-2' id="domainselect" onchange="toChangeDomain(this, 'serverselect');">
-        <option value="" selected="true" disabled="true">{{ _("选择平台") }}</option>
-    </select>
-    <label class='col-xs-2 col-sm-2 text-right'>{{ _("区服：") }}</label>
-    <select class='col-xs-2 col-sm-2' id="serverselect" onchange="toChangeServer(this, 's1');">
-    </select>
-</div>
+{#<div class="container row">#}
+{#    <label class='col-xs-4 col-sm-4'></label>#}
+{#    <label class='col-xs-2 col-sm-2 text-right'>{{ _("平台：") }}</label>#}
+{#    <select class='col-xs-2 col-sm-2' id="domainselect" onchange="toChangeDomain(this, 'serverselect');">#}
+{#        <option value="" selected="true" disabled="true">{{ _("选择平台") }}</option>#}
+{#    </select>#}
+{#    <label class='col-xs-2 col-sm-2 text-right'>{{ _("区服：") }}</label>#}
+{#    <select class='col-xs-2 col-sm-2' id="serverselect" onchange="toChangeServer(this, 's1');">#}
+{#    </select>#}
+{#</div>#}
 
 <div class="container row">
     <label class='col-xs-2 col-sm-2 text-right'>{{ _("用户ID：") }}</label>
@@ -31,29 +30,29 @@
 </div>
 
 
-<div id="js_debug_msg"></div>
-<script type="text/javascript">
-    domainoptions = $("#domainselect").get(0).options;
-    var domainDict = new Array();
-    {% for k,v in pyDomainDict.iteritems() %}
-        domainDict['{{ k }}'] = new Array();
-        domainoptions.add(new Option('{{ k }}', '{{ k }}'));
-        {% for i in v %}
-            domainDict['{{ k }}'].push('{{ i }}');
-        {% endfor %}
-    {% endfor %}
-
-    function toChangeDomain(obj, id) {
-        $("#"+id).empty();
-        $("#"+id).get(0).options.length = 0;
+{#<div id="js_debug_msg"></div>#}
+{#<script type="text/javascript">#}
+{#    domainoptions = $("#domainselect").get(0).options;#}
+{#    var domainDict = new Array();#}
+{#    {% for k,v in pyDomainDict.iteritems() %}#}
+{#        domainDict['{{ k }}'] = new Array();#}
+{#        domainoptions.add(new Option('{{ k }}', '{{ k }}'));#}
+{#        {% for i in v %}#}
+{#            domainDict['{{ k }}'].push('{{ i }}');#}
+{#        {% endfor %}#}
+{#    {% endfor %}#}
+{##}
+{#    function toChangeDomain(obj, id) {#}
+{#        $("#"+id).empty();#}
+{#        $("#"+id).get(0).options.length = 0;#}
 {#            $('#js_debug_msg').html(obj.value);#}
-        options = $("#"+id).get(0).options;
-        var serverList = domainDict[obj.value]
-        for (var i = 0; i < serverList.length; i++) {
-            options.add(new Option(serverList[i],serverList[i]));
-        }
-    }
-
-    function toChangeServer(obj, id) {
-    }
-</script>
+{#        options = $("#"+id).get(0).options;#}
+{#        var serverList = domainDict[obj.value]#}
+{#        for (var i = 0; i < serverList.length; i++) {#}
+{#            options.add(new Option(serverList[i],serverList[i]));#}
+{#        }#}
+{#    }#}
+{##}
+{#    function toChangeServer(obj, id) {#}
+{#    }#}
+{#</script>#}
