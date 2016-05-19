@@ -131,6 +131,11 @@
                 }
             })
         }
+
+        $("ul.secondmenu").on('show.bs.collapse', function () {
+            $("ul.secondmenu").collapse('hide');
+{#            alert('用这种办法，来折叠其他的，囧~');#}
+        })
     </script>
 
 </body>
