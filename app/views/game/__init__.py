@@ -11,14 +11,19 @@ import user_info
 import menu2
 
 
-@mod.route('/ajax/setdomain', methods=['GET'])
-def ajax():
+@mod.route('/ajax/setdomain/', methods=['GET'])
+def set_domain():
 
     #Access arguments via request.args
-    name = request.args.get('name')
-    time = request.args.get('time')
+    domain = request.args.get('domain')
+    server = request.args.get('server')
+    ret = {
+        "code": 0,
+        "domain": domain,
+        "server": server,
+    }
+    print domain, server
+    session['_domain'] = domain
+    session['_server'] = server
 
-
-    return render_template('ajax.html',
-                           name=name,
-                           time=time)
+    return jsonify(ret)

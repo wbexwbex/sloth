@@ -121,8 +121,15 @@
         }
 
         function toChangeServer(obj, id) {
-            $("#showdomain").text($("#domainselect").get(0).value);
-            $("#showserver").text(obj.value);
+            var domain = $("#domainselect").get(0).value;
+            var server = obj.value;
+            $.get("{{ url_for('game.set_domain') }}", {'domain': domain, 'server': server}, function (data, status) {
+                if (status == 'success') {
+{#                    alert("Data:" + data + "\nStatus:" + status);#}
+                    $("#showdomain").text(data['domain']);
+                    $("#showserver").text(data['server']);
+                }
+            })
         }
     </script>
 
