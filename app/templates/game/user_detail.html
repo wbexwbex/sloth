@@ -8,13 +8,13 @@
     <thead>
         <tr>
             <th>{{_('用户ID')}}</th>
-{#            <th>{{_('用户名')}}</th>#}
-{#            <th>{{_('昵称')}}</th>#}
-{#            <th>{{_('创建时间')}}</th>#}
-{#            <th>{{_('仙玉')}}</th>#}
-{#            <th>{{_('灵石')}}</th>#}
-{#            <th>{{_('VIP等级')}}</th>#}
-{#            <th>{{_('角色等级')}}</th>#}
+            <th>{{_('用户名')}}</th>
+            <th>{{_('昵称')}}</th>
+            <th>{{_('创建时间')}}</th>
+            <th>{{_('仙玉')}}</th>
+            <th>{{_('灵石')}}</th>
+            <th>{{_('VIP等级')}}</th>
+            <th>{{_('角色等级')}}</th>
         </tr>
     </thead>
     <tbody>
@@ -26,8 +26,13 @@
 {#                <a href="{{ url_for('edit.delete', uin=user.uin) }}" title='{{_("删除用户")}}'><small class='external'><span id="{{'udspan'+user.uin}}" style="visibility:hidden" class='glyphicon glyphicon-remove'></span></small></a>#}
 {#            </td>#}
             <td>{{ user[0] }}</td>
-{#            <td>{{ user.registration_ip }}</td>#}
-{#            <td>{{ user.registration_date }}</td>#}
+            <td>{{ user[1] }}</td>
+            <td>{{ user[1] }}</td>
+            <td>{{ user[2] }}</td>
+            <td>{{ user[3] }}</td>
+            <td>{{ user[4] }}</td>
+            <td>{{ user[5] }}</td>
+            <td>{{ user[6] }}</td>
         </tr>
         {% endfor %}
     </tbody>

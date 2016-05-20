@@ -28,9 +28,11 @@ def index():
         print form.roleid.data, session['_domain'], session['_server']
         print dbs[session['_server']]
         with sessionScope(dbs[session['_server']].session) as sessionDb:
-            sql='SELECT `role_id`,`name`,`name`,`registration_time`,`runestone`,`gold`,`vip`,`lv` FROM role LIMIT 10;'
+            sql='SELECT `role_id`,`name`,`registration_time`,`runestone`,`gold`,`vip`,`lv` FROM role LIMIT 10;'
             result = sessionDb.execute(sql)
             row = result.fetchall()
+            print type(row[0][1])
+            print row[0][1]
             print row
 
         return pjax(menu_list, 'game/user.html',
