@@ -30,6 +30,8 @@ def refresh_server_info(app):
                 uris[server_name] = 'mysql://%s:%s@%s:%s/%s' % (db_user, db_passwd, db_host, db_port, db_name)
 
     cfg['domainList'].extend(list(domainSet))
+    import models
+    models.refresh_sqlalchemy_database_uris()
 
     # print cfg['domainList']
     # print cfg['serverDict']

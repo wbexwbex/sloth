@@ -22,7 +22,6 @@ def set_domain():
         "domain": domain,
         "server": server,
     }
-    print domain, server
     session['_domain'] = domain
     session['_server'] = server
 

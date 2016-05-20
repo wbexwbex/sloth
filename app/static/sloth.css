@@ -83,10 +83,12 @@ transform:scale(0.95)
 
 .style-panel-right {
     border: 1px solid #ccc;
-    padding: 10px;
-    -moz-border-radius: 20px;
-    -webkit-border-radius: 20px;
-    border-radius: 20px;
+    margin-right: -5px;
+    margin-left: -5px;
+    padding: 5px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
 }
 
 

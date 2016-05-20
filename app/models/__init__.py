@@ -61,6 +61,15 @@ Session = dbs['main'].session
 Base = dbs['main'].base
 
 
+def refresh_sqlalchemy_database_uris():
+    for key, dbUrl in app.cfg['SQLALCHEMY_DATABASE_URIS'].items():
+        if key == 'main':
+            pass
+        else:
+            _engine = create_engine(dbUrl, echo=debug, pool_recycle=60*60)
+            _session = sessionmaker(bind=_engine)
+            _base = declarative_base(bind=_engine)
+            _base.__db__ = dbs[key] = Database(engine=_engine, session=_session, base=_base)
 
 
 

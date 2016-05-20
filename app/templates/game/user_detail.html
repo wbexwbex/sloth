@@ -1,4 +1,35 @@
 
-<h1>user detail</h1>
-<p>The user detail page.</p>
+<table class="table table-striped table-hover table-condensed">
+{#    <caption>{{_('用户管理')}}#}
+{#        <a class='' href="{{ url_for('edit.new') }}" title='{{_("创建新用户")}}'>#}
+{#            <span class='glyphicon glyphicon-plus-sign'></span>#}
+{#        </a>#}
+{#    </caption>#}
+    <thead>
+        <tr>
+            <th>{{_('用户ID')}}</th>
+{#            <th>{{_('用户名')}}</th>#}
+{#            <th>{{_('昵称')}}</th>#}
+{#            <th>{{_('创建时间')}}</th>#}
+{#            <th>{{_('仙玉')}}</th>#}
+{#            <th>{{_('灵石')}}</th>#}
+{#            <th>{{_('VIP等级')}}</th>#}
+{#            <th>{{_('角色等级')}}</th>#}
+        </tr>
+    </thead>
+    <tbody>
+        {% for user in users %}
+        <tr>
+{#            <td>#}
+{#                <a href="{{ url_for('edit.edit', uin=user.uin) }}" title='{{_("编辑用户")}}'><small class='external'><span class='glyphicon glyphicon-edit'></span></small></a>#}
+{#                {{ user.uin }}#}
+{#                <a href="{{ url_for('edit.delete', uin=user.uin) }}" title='{{_("删除用户")}}'><small class='external'><span id="{{'udspan'+user.uin}}" style="visibility:hidden" class='glyphicon glyphicon-remove'></span></small></a>#}
+{#            </td>#}
+            <td>{{ user[0] }}</td>
+{#            <td>{{ user.registration_ip }}</td>#}
+{#            <td>{{ user.registration_date }}</td>#}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 
