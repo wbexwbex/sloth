@@ -31,9 +31,6 @@ def index():
             sql='SELECT `role_id`,`name`,`registration_time`,`runestone`,`gold`,`vip`,`lv` FROM role LIMIT 10;'
             result = sessionDb.execute(sql)
             row = result.fetchall()
-            print type(row[0][1])
-            print row[0][1]
-            print row
 
         return pjax(menu_list, 'game/user.html',
                     subpage='game/user_detail.html', title='Game',
