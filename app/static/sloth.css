@@ -81,7 +81,13 @@ transition:all 0.02s;
 transform:scale(0.95)
 }
 
-
+.style-panel-right {
+    border: 1px solid #ccc;
+    padding: 10px;
+    -moz-border-radius: 20px;
+    -webkit-border-radius: 20px;
+    border-radius: 20px;
+}
 
 
 
