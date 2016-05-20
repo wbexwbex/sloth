@@ -14,7 +14,7 @@ def stuff_menu1():
 @mod.route('/', methods=['GET'])
 @mod.route('/user/', methods=['GET', 'POST'])
 @requires_login
-@generate_menu(menu_list, mod, gettext(u'基本信息'), 'glyphicon-th-large', 1, 1)
+@generate_menu(menu_list, mod, gettext(u'用户查询'), 'glyphicon-th-large', 1, 1)
 def index():
 
     form = UserForm()
