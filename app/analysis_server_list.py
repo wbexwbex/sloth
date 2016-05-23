@@ -27,7 +27,7 @@ def refresh_server_info(app):
 
                 cfg['domainDict'][domain].append(server_name)
                 cfg['serverDict'][server_name] = items
-                uris[server_name] = 'mysql://%s:%s@%s:%s/%s' % (db_user, db_passwd, db_host, db_port, db_name)
+                uris[server_name] = 'mysql://%s:%s@%s:%s/%s?charset=utf8' % (db_user, db_passwd, db_host, db_port, db_name)
 
     cfg['domainList'].extend(list(domainSet))
     import models

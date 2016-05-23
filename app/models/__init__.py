@@ -44,9 +44,8 @@ dbs = dict()
 Database = namedtuple('Database', ('engine', 'session', 'base'))
 for key, dbUrl in app.cfg['SQLALCHEMY_DATABASE_URIS'].items():
     # if dbUrl.startswith('mysql://'):
-    #   __import__('umysqldb').install_as_MySQLdb()
-
-    _engine = create_engine(dbUrl, echo=debug, convert_unicode=True, encoding='utf-8', pool_recycle=60*60)
+    #     __import__('umysqldb').install_as_MySQLdb()
+    _engine = create_engine(dbUrl, echo=debug, connect_args={'charset':'utf8'}, encoding='utf8', pool_recycle=60*60)
     _session = sessionmaker(bind=_engine)
     if key == 'main':
         from account import Base as _base
@@ -66,7 +65,7 @@ def refresh_sqlalchemy_database_uris():
         if key == 'main':
             pass
         else:
-            _engine = create_engine(dbUrl, echo=debug, convert_unicode=True, encoding='utf-8', pool_recycle=60*60)
+            _engine = create_engine(dbUrl, echo=debug, connect_args={'charset':'utf8'}, encoding='utf8', pool_recycle=60*60)
             _session = sessionmaker(bind=_engine)
             _base = declarative_base(bind=_engine)
             _base.__db__ = dbs[key] = Database(engine=_engine, session=_session, base=_base)

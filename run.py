@@ -1,4 +1,7 @@
 #!/usr/local/bin/python
+from gevent import monkey
+monkey.patch_thread()
+monkey.patch_all()
 import app
 
 def run_flask():

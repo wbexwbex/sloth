@@ -33,7 +33,7 @@ GROUP_IDS = ('root', 'xn')
 
 # SQLALCHEMY_DATABASE_URI = 'mysql://root:@localhost/xndb'
 SQLALCHEMY_DATABASE_URIS = {
-    'main': 'mysql://root:@localhost:3306/xndb',
+    'main': 'mysql://root:@localhost:3306/xndb?charset=utf8',
 }
 SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db_repository')
 SQLALCHEMY_RECORD_QUERIES = True
