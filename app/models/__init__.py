@@ -43,8 +43,9 @@ debug = app.cfg.get('debug', False)
 dbs = dict()
 Database = namedtuple('Database', ('engine', 'session', 'base'))
 for key, dbUrl in app.cfg['SQLALCHEMY_DATABASE_URIS'].items():
-    # if dbUrl.startswith('mysql://'):
-    #     __import__('umysqldb').install_as_MySQLdb()
+    # 1.0.3 umysqldb/times.py line 58 add code: if isinstance(s, Timestamp): return s
+    if dbUrl.startswith('mysql://'):
+        __import__('umysqldb').install_as_MySQLdb()
     _engine = create_engine(dbUrl, echo=debug, connect_args={'charset':'utf8'}, encoding='utf8', pool_recycle=60*60)
     _session = sessionmaker(bind=_engine)
     if key == 'main':
@@ -65,6 +66,8 @@ def refresh_sqlalchemy_database_uris():
         if key == 'main':
             pass
         else:
+            if dbUrl.startswith('mysql://'):
+                __import__('umysqldb').install_as_MySQLdb()
             _engine = create_engine(dbUrl, echo=debug, connect_args={'charset':'utf8'}, encoding='utf8', pool_recycle=60*60)
             _session = sessionmaker(bind=_engine)
             _base = declarative_base(bind=_engine)

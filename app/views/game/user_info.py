@@ -1,4 +1,5 @@
 # vim: fileencoding=utf-8
+import gevent
 from menu_data import mod, menu_list
 from flask.ext.babel import gettext
 from ...utils import passwdHash, requires_login, pjax, generate_menu
@@ -21,14 +22,10 @@ def stuff_menu1():
 def index():
 
     form = UserForm()
-    print request
-    print request.method, request.form
-
     if request.method == 'POST':
-        print form.roleid.data, session['_domain'], session['_server']
-        print dbs[session['_server']]
+        cond = 'role_id=%s' % form.roleid.data if form.roleid.data else '`name` like "%%%s%%"' % form.name.data if form.name.data else '1'
         with sessionScope(dbs[session['_server']].session) as sessionDb:
-            sql='SELECT `role_id`,`name`,`registration_time`,`runestone`,`gold`,`vip`,`lv` FROM role LIMIT 10;'
+            sql='SELECT `role_id`,`name`,`registration_time`,`runestone`,`gold`,`vip`,`lv` FROM role where %s LIMIT 10;' % cond
             result = sessionDb.execute(sql)
             row = result.fetchall()
 
